@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ossjk.asset.book.mapper.Furniture_books_scrapMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.ossjk.asset.book.entity.Furniture_books_scrap">
+		<id column="id" property="id" />
+		<result column="fbid" property="fbid" />
+		<result column="scraper" property="scraper" />
+		<result column="scraperdate" property="scraperdate" />
+		<result column="scrapremarks" property="scrapremarks" />
+		<result column="status" property="status" />
+		<result column="approver" property="approver" />
+		<result column="approvalremarks" property="approvalremarks" />
+		<result column="approvaldate" property="approvaldate" />
+		<result column="crtm" property="crtm" />
+		<result column="mdtm" property="mdtm" />
+	</resultMap>
+	<select id="selectFurniture_books_scrapVo" resultType="com.ossjk.asset.book.vo.Furniture_books_scrapVo">
+		SELECT p.*,k.code FROM furniture_books_scrap p left join furniture_book k on p.fbid=k.id
+		<!-- 如果我们需要使用查询条件 -->
+		<!-- 因为我们使用了mybatis plus插件 ，他提供了一个条件构造器wrapper，只要把条件构造器传进来就可以了 -->
+		${ew.sqlSegment}<!-- 条件构造器wrapper的sql拼接内容 -->
+	</select>
+</mapper>

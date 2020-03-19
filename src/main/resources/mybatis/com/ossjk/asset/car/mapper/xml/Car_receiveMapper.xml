@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ossjk.asset.car.mapper.Car_receiveMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.ossjk.asset.car.entity.Car_receive">
+		<id column="id" property="id" />
+		<result column="cid" property="cid" />
+		<result column="receipt" property="receipt" />
+		<result column="recipients" property="recipients" />
+		<result column="receivedate" property="receivedate" />
+		<result column="returndate" property="returndate" />
+		<result column="status" property="status" />
+		<result column="receiveremarks" property="receiveremarks" />
+		<result column="returnremarks" property="returnremarks" />
+		<result column="crtm" property="crtm" />
+		<result column="mdtm" property="mdtm" />
+	</resultMap>
+
+	<select id="selectCar_receiveVo" resultType="com.ossjk.asset.car.vo.Car_receiveVo">
+		SELECT
+			c.id,
+			u.NAME as recipientsNAME,
+			r.* 
+		FROM
+			car_receive r
+			LEFT JOIN car c ON r.cid = c.id
+			LEFT JOIN USER u ON r.recipients = u.id
+		${ew.sqlSegment}
+	</select>
+	
+</mapper>

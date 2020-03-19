@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ossjk.asset.device.mapper.DeviceMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.ossjk.asset.device.entity.Device">
+		<id column="id" property="id" />
+		<result column="dtid" property="dtid" />
+		<result column="code" property="code" />
+		<result column="residualrate" property="residualrate" />
+		<result column="useyear" property="useyear" />
+		<result column="residual" property="residual" />
+		<result column="original" property="original" />
+		<result column="status" property="status" />
+		<result column="proddate" property="proddate" />
+		<result column="creator" property="creator" />
+		<result column="createtime" property="createtime" />
+		<result column="buyer" property="buyer" />
+		<result column="bugdate" property="bugdate" />
+		<result column="sno" property="sno" />
+		<result column="crtm" property="crtm" />
+		<result column="mdtm" property="mdtm" />
+	</resultMap>
+
+	<!-- <select id="selectDeviceVo" resultType="com.ossjk.asset.device.entity.vo.DeviceVo">
+	SELECT
+		t.NAME as tname,
+		d.*
+	FROM
+		device d
+		LEFT JOIN device_type t ON d.dtid = t.id
+	weapper条件构造器
+  		${ew.sqlSegment}
+	</select> -->
+	<select id="selectDeviceVo" resultType="com.ossjk.asset.device.vo.DeviceVo">
+	SELECT
+		t.NAME tname,
+		u.NAME uname,
+		e.NAME ename,
+		d.*
+	FROM
+		device d
+		JOIN USER u ON ( d.creator = u.id )
+		JOIN device_type t ON ( t.id = d.dtid )
+		JOIN USER e ON (
+		d.buyer = e.id)
+	<!-- weapper条件构造器 -->
+  		${ew.sqlSegment}
+	</select>
+
+
+</mapper>

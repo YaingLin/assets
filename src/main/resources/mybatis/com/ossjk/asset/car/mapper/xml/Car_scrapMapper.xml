@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ossjk.asset.car.mapper.Car_scrapMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.ossjk.asset.car.entity.Car_scrap">
+		<id column="id" property="id" />
+		<result column="cid" property="cid" />
+		<result column="scraper" property="scraper" />
+		<result column="scraperdate" property="scraperdate" />
+		<result column="scrapremarks" property="scrapremarks" />
+		<result column="status" property="status" />
+		<result column="approver" property="approver" />
+		<result column="approvalremarks" property="approvalremarks" />
+		<result column="approvaldate" property="approvaldate" />
+		<result column="crtm" property="crtm" />
+		<result column="mdtm" property="mdtm" />
+	</resultMap>
+
+		<select id="selectCar_scrapVo" resultType="com.ossjk.asset.car.vo.Car_scrapVo">
+		
+		SELECT
+			c.id,
+			u.NAME AS scraperNAME,
+			a.NAME AS approverNAME,
+			s.* 
+		FROM
+			car_scrap s
+			LEFT JOIN car c ON s.cid = c.id
+			LEFT JOIN USER u ON s.scraper = u.id
+			LEFT JOIN USER a ON s.approver = a.id
+		${ew.sqlSegment}
+		
+		</select>
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ossjk.asset.house.mapper.House_receiveMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.ossjk.asset.house.entity.House_receive">
+		<id column="id" property="id" />
+		<result column="hid" property="hid" />
+		<result column="oid" property="oid" />
+		<result column="receipt" property="receipt" />
+		<result column="creator" property="creator" />
+		<result column="remarks" property="remarks" />
+		<result column="crtm" property="crtm" />
+		<result column="mdtm" property="mdtm" />
+	</resultMap>
+	<select id="selectHouse_receiveVo" resultType="com.ossjk.asset.house.vo.House_receiveVo">
+		SELECT 
+			h.address,
+			h.service_life,
+			o.`name` oName,
+			u.NAME uName,
+			hr.* 
+		FROM
+			house h,
+			house_receive hr,
+			organization o,
+			`user` u 
+		WHERE
+			h.id = hr.hid 
+			AND hr.oid = o.id 
+			AND u.id = hr.creator
+		${ew.sqlSegment}
+	</select>
+	<select id="selectHouse_receiveVoById" resultType="com.ossjk.asset.house.vo.House_receiveVo">
+		select * from(
+		SELECT 
+			h.address,
+			h.service_life,
+			o.`name` oName,
+			u.NAME uName,
+			hr.* 
+		FROM
+			house h,
+			house_receive hr,
+			organization o,
+			`user` u 
+		WHERE
+			h.id = hr.hid 
+			AND hr.oid = o.id 
+			AND u.id = hr.creator) a where id=#{id}
+	</select>
+</mapper>

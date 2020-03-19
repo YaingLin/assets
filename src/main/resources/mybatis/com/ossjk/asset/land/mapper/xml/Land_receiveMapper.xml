@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ossjk.asset.land.mapper.Land_receiveMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.ossjk.asset.land.entity.Land_receive">
+		<id column="id" property="id" />
+		<result column="lid" property="lid" />
+		<result column="oid" property="oid" />
+		<result column="receipt" property="receipt" />
+		<result column="creator" property="creator" />
+		<result column="remarks" property="remarks" />
+		<result column="crtm" property="crtm" />
+		<result column="mdtm" property="mdtm" />
+	</resultMap>
+	<select id="selectLand_receiveVo" resultType="com.ossjk.asset.land.vo.Land_receiveVo">
+		SELECT 
+			l.address,
+			l.service_life,
+			o.`name` oName,
+			u.NAME uName,
+			lr.* 
+		FROM
+			land l,
+			land_receive lr,
+			organization o,
+			`user` u 
+		WHERE
+			l.id = lr.lid 
+			AND lr.oid = o.id 
+			AND u.id = lr.creator
+		${ew.sqlSegment}
+	</select>
+		<select id="selectVoById" resultType="com.ossjk.asset.land.vo.Land_receiveVo">
+		select * from (
+		SELECT 
+			l.address,
+			l.service_life,
+			l.status,
+			o.`name` oName,
+			u.NAME uName,
+			lr.* 
+		FROM
+			land l,
+			land_receive lr,
+			organization o,
+			`user` u 
+		WHERE
+			l.id = lr.lid 
+			AND lr.oid = o.id 
+			AND u.id = lr.creator) a where id=#{id}
+	</select>
+
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ossjk.asset.car.mapper.CarMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap"
+		type="com.ossjk.asset.car.entity.Car">
+		<id column="id" property="id" />
+		<result column="ctid" property="ctid" />
+		<result column="code" property="code" />
+		<result column="residualrate" property="residualrate" />
+		<result column="useyear" property="useyear" />
+		<result column="residual" property="residual" />
+		<result column="original" property="original" />
+		<result column="status" property="status" />
+		<result column="proddate" property="proddate" />
+		<result column="creator" property="creator" />
+		<result column="createtime" property="createtime" />
+		<result column="buyer" property="buyer" />
+		<result column="bugdate" property="bugdate" />
+		<result column="sno" property="sno" />
+		<result column="crtm" property="crtm" />
+		<result column="mdtm" property="mdtm" />
+	</resultMap>
+
+	<select id="selectCarVo"
+		resultType="com.ossjk.asset.car.vo.CarVo">
+		SELECT
+		t.NAME,
+		u.NAME as buyerName,
+		s.NAME as creatorName,
+		c.*
+		FROM
+		car c
+		LEFT JOIN car_type t ON c.ctid = t.id
+		LEFT JOIN USER u ON c.buyer = u.id
+		LEFT JOIN USER s ON c.creator = s.id
+		${ew.sqlSegment}<!-- 条件构造器wrapper的sql拼接内容 -->
+	</select>
+</mapper>

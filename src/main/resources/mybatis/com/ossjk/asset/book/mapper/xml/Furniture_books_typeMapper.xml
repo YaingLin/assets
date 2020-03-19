@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ossjk.asset.book.mapper.Furniture_books_typeMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.ossjk.asset.book.entity.Furniture_books_type">
+		<id column="id" property="id" />
+		<result column="type" property="type" />
+		<result column="name" property="name" />
+		<result column="brand" property="brand" />
+		<result column="intlcode" property="intlcode" />
+		<result column="remarks" property="remarks" />
+		<result column="crtm" property="crtm" />
+		<result column="mdtm" property="mdtm" />
+	</resultMap>
+	<select id="selectAll" resultType="com.ossjk.asset.book.entity.Furniture_books_type">
+		select * from furniture_books_type
+	</select>
+</mapper>
